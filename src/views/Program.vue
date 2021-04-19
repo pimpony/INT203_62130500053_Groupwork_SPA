@@ -1,6 +1,6 @@
 <template>
-  <div class="flex justify-center items-center bg-cover bg-scroll bg-center h-screen" style="background-image: url(https://www.chloeting.com/splash/bg-img.jpeg)">
-    <div class="h-full w-screen flex justify-center items-center">
+  <div class="flex justify-center items-center bg-cover bg-scroll bg-center h-screen " style="background-image: url(https://www.chloeting.com/splash/bg-img.jpeg)">
+    <div class="h-full w-screen flex justify-center items-center min-h-screen">
       <!-- block image to search and can edit , delete  -->
       <div class="h-screen w-3/6 bg-white bg-opacity-50 items-center mx-auto rounded-xl">
         <div class="mt-3">
@@ -12,27 +12,27 @@
           />
            <!-- if notfound Show ... -->
           <p v-if="notFound" class="text-center text-xl mt-4">
-            We can't find the Program <br />that you're looking for...
+            We can't find the Program
           </p>
-          <!-- Select Programs show Popup  -->
+          <!-- Select Programs show   -->
        <div class=" bg-gray-300 bg-opacity-75 rounded-xl"  >
-        <span @click="closeProgram"  class="text-xl bg-pink close-icon text-black flex justify-end mr-5" >
+        <!-- <span @click="closeProgram"  class="text-xl bg-pink close-icon text-black flex justify-end mr-5" >
           x
-          </span>
+          </span> -->
           <div class="col-span-2 mt-1 mb-3">
             <div class="grid grid-cols-2 ml-8">
               <div>             
-                <h1 class="text-xl font-bold">Programname : {{ currentProgram.name }}</h1>
-                <p class="mt-2">Description :<br/> {{ currentProgram.description }}</p>
+                <h1 class="text-xl font-bold">Program name : {{ programnow.name }}</h1>
+                <p class="mt-2">Description :<br/> {{ programnow.description }}</p>
               </div>
                 <div class="flex justify-center items-center">
                   <div class=" grid grid-cols ">
                     <h1 class="bg-gray-400 text-white text-2xl flex justify-center rounded-full items-center my-2 ">
-                      {{ currentProgram.price + ".-" }}
+                      {{ programnow.price + ".-" }}
                     </h1>
                     
                     <img
-                      :src="currentProgram.imgSrc"
+                      :src="programnow.imgSrc"
                       class="w-32 h-44 flex justify-center items-center"
                     />
         
@@ -44,7 +44,7 @@
           
 
           <!-- Show Programs all  -->
-          <div class="max-h-4.5/6 overflow-y-auto">
+          <div class=" overflow-y-auto">
             <div v-for="m in searchProgram" :key="m.id">
               <Program-block
                 :ProgramImg="m.imgSrc"
@@ -66,12 +66,13 @@
   </div>
 
   <modal v-if="addClicked"  @close="changeAddItemClicked" formLabel="Add New Program" @save-Program="addNewProgram" ></modal>
-  <modal v-if="editClicked" @close="changeEditItemClicked" formLabel="Edit Program" :ProgramImgFromDb="currentProgram.imgSrc" :name="currentProgram.name"
-    :description="currentProgram.description" :price="currentProgram.price" @save-Program="editProgram"></modal>
+  <modal v-if="editClicked" @close="changeEditItemClicked" formLabel="Edit Program" :ProgramImgFromDb="programnow.imgSrc" :name="programnow.name"
+    :description="programnow.description" :price="programnow.price" @save-Program="editProgram"></modal>
 </template>
 <script>
 import ProgramBlock from "../components/ProgramBlock";
 import Modal from "../components/Modal";
+
 
 export default {
   emits: ["close-add-modal",],
@@ -86,7 +87,7 @@ export default {
       Program: [],
       inputSearch: "",
       notFound: false,
-      currentProgram: [],
+      programnow: [],
       editClicked: false,
       
     };
@@ -107,11 +108,11 @@ export default {
       return data;
     },
     closeProgram() {
-      this.currentProgram = false;
+      this.programnow = false;
+      
     },
     selectedProgram(Program) {
-      this.currentProgram = Program;
-      
+      this.programnow = Program;
     },
     async addNewProgram(newProgram) {
       const res = await fetch(this.url, {
@@ -128,7 +129,7 @@ export default {
       });
       const data = await res.json();
       this.Program = [...this.Program, data];
-      this.currentProgram = this.Program[this.Program.length - 1];
+      this.programnow = this.Program[this.Program.length - 1];
     },
     async deleteProgram(id) {
       const res = await fetch(`${this.url}/${id}`, {
@@ -137,13 +138,13 @@ export default {
       res.status === 200
         ? (this.Program = this.Program.filter((m) => m.id !== id))
         : alert("Error to delete Program");
-      this.currentProgram = this.Program[this.Program.length - 1];
+      this.programnow = this.Program[this.Program.length - 1];
     },
     openEditModal(value) {
       this.editClicked = value;
     },
     async editProgram(editingProgram) {
-      const res = await fetch(`${this.url}/${this.currentProgram.id}`, {
+      const res = await fetch(`${this.url}/${this.programnow.id}`, {
         method: "PUT",
         headers: {
           "Content-type": "application/json",
@@ -167,10 +168,10 @@ export default {
             }
           : m
       );
-      this.currentProgram.name = editingProgram.name;
-      this.currentProgram.description = editingProgram.description;
-      this.currentProgram.price = editingProgram.price;
-      this.currentProgram.imgSrc = editingProgram.imgSrc;
+      this.programnow.name = editingProgram.name;
+      this.programnow.description = editingProgram.description;
+      this.programnow.price = editingProgram.price;
+      this.programnow.imgSrc = editingProgram.imgSrc;
     },
   },
   computed: {
@@ -192,7 +193,7 @@ export default {
   },
   async created() {
     this.Program = await this.fetchProgram();
-    this.currentProgram = await this.Program[0];
+    this.programnow = await this.Program[0];
   },
 };
 </script>

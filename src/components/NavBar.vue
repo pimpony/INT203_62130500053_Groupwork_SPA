@@ -6,9 +6,9 @@
         </h1>
         <div>
             <router-link to="/about"  >
-            <base-button  buttonLabel="About Chloe Ting"  textColor="text-gray-600" borderColor="border-transparent"/> 
+            <base-button  buttonLabel="About"  textColor="text-gray-600" borderColor="border-transparent"/> 
             </router-link>
-            <base-button buttonLabel="+ Add New Program"  textColor="text-gray-600" borderColor="border-transparent" v-if="$route.path==='/Program'" @click="changeAddItemClicked"/>
+            <base-button buttonLabel="New Program"  textColor="text-gray-600" borderColor="border-transparent" v-if="$route.path==='/Program'" @click="changeAddItemClicked"/>
             <router-link to="/Program" v-else>
                <base-button buttonLabel="Program"  textColor="text-gray-600" borderColor="border-transparent"/> 
             </router-link>

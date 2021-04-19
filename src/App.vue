@@ -1,7 +1,7 @@
 <template>
   <nav-bar v-if="$route.path === '/'" fixedNav="fixed"></nav-bar>
   <nav-bar v-else  @add-clicked="addButtonClicked"></nav-bar>
-  <router-view :addClicked="addItemClicked" @close-add-modal="closeAddModal" />
+  <router-view :addClicked="addItemClicked" @close-add-modal="closeAddModal" class="min-h-screen"/>
 </template>
 <style>
 @import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap");

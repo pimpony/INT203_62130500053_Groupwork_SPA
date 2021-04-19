@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="min-h-screen">
     <video autoplay muted loop id="myVideo" class="fixed right-0 bottom-0 min-w-full min-h-full -z-99">
       <source src="../assets/Challenge_1080p.mp4" type="video/mp4" />
     </video>
