@@ -22,9 +22,12 @@
           <div class="col-span-2 my-3">
             <div class="grid grid-cols-2 ml-8  ">
               <div>             
-                <h1 class="text-xl font-bold mt-4">Program name : {{ programnow.name }}</h1>
-                <p class="mt-2">Type :<br/> {{ programnow.type }}</p>
-                <p class="mt-2">Equipment :<br/> {{ programnow.equipment }}</p>
+                <h1 class="text-xl font-bold mt-4"> {{ programnow.name }}</h1>
+                
+                <p class="mt-2 text-base font-bold text-gray-600">Type :</p>
+                <p class="mt-1"> {{ programnow.type }}</p>
+                <p class="mt-2 text-base font-bold text-gray-600">Equipment :</p>
+                <p class="mt-1"> {{ programnow.equipment }}</p>
               </div>
               <div class="flex justify-center items-center">
                   <div class=" grid grid-cols ">
@@ -88,8 +91,7 @@ export default {
       inputSearch: "",
       notFound: false,
       programnow: [],
-      editClicked: false,
-      
+      editClicked: false,  
     };
   },
   methods: {

@@ -2,7 +2,7 @@
 <div class="bg-cover bg-center min-h-screen" style="background-image: url(https://www.chloeting.com/about/background-banner.jpg)">
     <div class="w-screen h-screen">
       <div class="container md:mx-auto grid grid-cols-2">
-        <div class="bg-gray-200 bg-opacity-50 m-2 p-2 text-gray-600">
+        <div class="bg-gray-200 bg-opacity-50 mt-8 p-2 text-gray-600">
           <h1 class="text-3xl font-semibold ml-3">About Me</h1>
           <div class="text-sm mt-1 ml-3 font-sans">
             <p>
