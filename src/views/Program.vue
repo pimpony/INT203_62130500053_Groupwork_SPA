@@ -1,6 +1,6 @@
 <template>
-  <div class="flex justify-center items-center bg-cover bg-scroll bg-center h-screen " style="background-image: url(https://www.chloeting.com/splash/bg-img.jpeg)">
-    <div class="h-full w-screen flex justify-center items-center min-h-screen">
+  <div class="flex justify-center items-center bg-cover  bg-center w-screen min-h-screen  " style="background-image: url(https://www.chloeting.com/splash/bg-img.jpeg)">
+    <div class=" w-screen flex justify-center items-center ">
       <!-- block image to search and can edit , delete  -->
       <div class="h-screen w-3/6 bg-white bg-opacity-50 items-center mx-auto rounded-xl">
         <div class="mt-3">
@@ -19,7 +19,7 @@
         <!-- <span @click="closeProgram"  class="text-xl bg-pink close-icon text-black flex justify-end mr-5" >
           x
           </span> -->
-          <div class="col-span-2 mt-1 mb-3">
+          <div class="col-span-2 mt-3 mb-3">
             <div class="grid grid-cols-2 ml-8">
               <div>             
                 <h1 class="text-xl font-bold">Program name : {{ programnow.name }}</h1>
@@ -44,7 +44,7 @@
           
 
           <!-- Show Programs all  -->
-          <div class=" overflow-y-auto">
+          <div class=" ">
             <div v-for="m in searchProgram" :key="m.id">
               <Program-block
                 :ProgramImg="m.imgSrc"

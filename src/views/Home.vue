@@ -12,7 +12,7 @@
         <router-link to="/Program">
           <base-button
             buttonLabel="Program"
-            buttonColor="bg-gray-600"
+            buttonColor="bg-gray-400"
             textColor="text-white"
             borderColor="border-transparent"
             class="text-xl"

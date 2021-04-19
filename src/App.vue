@@ -1,20 +1,21 @@
-<template>
+<template><div > 
   <nav-bar v-if="$route.path === '/'" fixedNav="fixed"></nav-bar>
   <nav-bar v-else  @add-clicked="addButtonClicked"></nav-bar>
-  <router-view :addClicked="addItemClicked" @close-add-modal="closeAddModal" class="min-h-screen"/>
+  <router-view :addClicked="addItemClicked" @close-add-modal="closeAddModal" />
+          </div>
 </template>
 <style>
 @import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap");
 * {
   font-family: "Quicksand", sans-serif;
-  overflow: hidden;
+
 }
 </style>
 <script>
 import NavBar from "./components/NavBar";
 export default {
   components: {
-    NavBar,
+    NavBar
   },
   data() {
     return {
