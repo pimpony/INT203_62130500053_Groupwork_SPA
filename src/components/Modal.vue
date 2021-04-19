@@ -45,7 +45,7 @@
                         id="ProgramName"
                         v-model="ProgramName"
                         name="ProgramName"
-                        class="border w-11/12 mt-2 rounded h-8 text-md"
+                        class="border w-11/12 mt-2 rounded h-10 text-md"
                       />
                       <br>
                       <i class="text-sm text-red-500" v-if="errors">
@@ -53,18 +53,33 @@
                       >
                     </div>
                     <div class="mt-4">
-                      <label for="ProgramDescript" class="text-lg font-medium"
-                        >Program Description
+                      <label for="ProgramType" class="text-lg font-medium"
+                        >Program type
                         </label
                       >
                       <br />
                       <textarea
                         rows="5"
                         cols="50"
-                        id="ProgramDescript"
-                        v-model="ProgramDescript"
-                        name="ProgramDescript"
-                        class="border w-11/12 mt-2 rounded text-mg"
+                        id="ProgramType"
+                        v-model="ProgramType"
+                        name="ProgramType"
+                        class="border w-11/12 mt-2 h-10 rounded text-mg"
+                      />
+                    </div>
+                    <div class="mt-4">
+                      <label for="ProgramEquipment" class="text-lg font-medium"
+                        >Program Equipment
+                        </label
+                      >
+                      <br />
+                      <textarea
+                        rows="5"
+                        cols="50"
+                        id="ProgramEquipment"
+                        v-model="ProgramEquipment"
+                        name="ProgramEquipment"
+                        class="border w-11/12 mt-2 h-14 rounded text-mg"
                       />
                     </div>
                     <div class="mt-2">
@@ -77,7 +92,7 @@
                         id="ProgramPrice"
                         v-model="ProgramPrice"
                         name="ProgramPrice"
-                        class="border w-1/5 mt-2 rounded h-8 text-md"
+                        class="w-2/5 mt-2 rounded h-10 text-md"
                       />
                       <br>
                       <i class="text-sm text-red-500" v-if="errors">
@@ -125,13 +140,14 @@ const constraints = {
 };
 
 export default {
-  props: ["formLabel", "ProgramImgFromDb", "name", "description", "price"],
+  props: ["formLabel", "ImgInDb", "name", "type","equipment", "price"],
   emits: ["close", "save-Program"],
   data() {
     return {
-      ProgramImage: this.ProgramImgFromDb ? this.ProgramImgFromDb : ProgramImage,
+      ProgramImage: this.ImgInDb ? this.ImgInDb : ProgramImage,
       ProgramName: this.name,
-      ProgramDescript: this.description,
+      ProgramType: this.type,
+      ProgramEquipment: this.equipment,
       ProgramPrice: this.price,
       errors: null,
     };
@@ -149,12 +165,12 @@ export default {
       reader.readAsDataURL(file);
     },
     checkForm() {
-      console.log("he");
       var validate = require("validate.js");
       this.errors = validate(
         {
           ProgramName: this.ProgramName,
-          ProgramDescript: this.ProgramDescript,
+          ProgramType: this.ProgramType,
+          ProgramEquipment: this.ProgramEquipment,
           ProgramPrice: this.ProgramPrice,
         },
         constraints
@@ -169,7 +185,8 @@ export default {
     saveProgramInfo() {
       let Program = {
         name: this.ProgramName,
-        description: this.ProgramDescript,
+        type: this.ProgramType,
+        equipment: this.ProgramEquipment,
         price: this.ProgramPrice,
         imgSrc: this.ProgramImage
       };

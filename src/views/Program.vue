@@ -15,27 +15,26 @@
             We can't find the Program
           </p>
           <!-- Select Programs show   -->
-       <div class=" bg-gray-300 bg-opacity-75 rounded-xl"  >
+       <div class=" bg-gray-300 bg-opacity-75 rounded-xl "  >
         <!-- <span @click="closeProgram"  class="text-xl bg-pink close-icon text-black flex justify-end mr-5" >
           x
           </span> -->
-          <div class="col-span-2 mt-3 mb-3">
-            <div class="grid grid-cols-2 ml-8">
+          <div class="col-span-2 my-3">
+            <div class="grid grid-cols-2 ml-8  ">
               <div>             
-                <h1 class="text-xl font-bold">Program name : {{ programnow.name }}</h1>
-                <p class="mt-2">Description :<br/> {{ programnow.description }}</p>
+                <h1 class="text-xl font-bold mt-4">Program name : {{ programnow.name }}</h1>
+                <p class="mt-2">Type :<br/> {{ programnow.type }}</p>
+                <p class="mt-2">Equipment :<br/> {{ programnow.equipment }}</p>
               </div>
-                <div class="flex justify-center items-center">
+              <div class="flex justify-center items-center">
                   <div class=" grid grid-cols ">
-                    <h1 class="bg-gray-400 text-white text-2xl flex justify-center rounded-full items-center my-2 ">
-                      {{ programnow.price + ".-" }}
-                    </h1>
-                    
-                    <img
-                      :src="programnow.imgSrc"
-                      class="w-32 h-44 flex justify-center items-center"
-                    />
-        
+                      <h1 class="bg-gray-400 text-white text-2xl flex justify-center rounded-full items-center my-2 ">
+                        {{ programnow.price + ".-" }}
+                      </h1>
+                      <img
+                        :src="programnow.imgSrc"
+                        class="w-32 h-44 flex justify-center items-center mb-2 "
+                      />
                   </div>
               </div>
           </div>
@@ -45,13 +44,14 @@
 
           <!-- Show Programs all  -->
           <div class=" ">
-            <div v-for="m in searchProgram" :key="m.id">
+            <div v-for="p in searchProgram" :key="p.id">
               <Program-block
-                :ProgramImg="m.imgSrc"
-                :ProgramName="m.name"
-                :ProgramPrice="m.price"
-                @click="selectedProgram(m)"
-                @delete-click="deleteProgram(m.id)"
+                :ProgramImg="p.imgSrc"
+                :ProgramName="p.name"
+                :ProgramPrice="p.price"
+                :ProgramEquipment="p.equipment"
+                @click="selectedProgram(p)"
+                @delete-click="deleteProgram(p.id)"
                 @edit-click="openEditModal"
               />
             </div>
@@ -67,7 +67,7 @@
 
   <modal v-if="addClicked"  @close="changeAddItemClicked" formLabel="Add New Program" @save-Program="addNewProgram" ></modal>
   <modal v-if="editClicked" @close="changeEditItemClicked" formLabel="Edit Program" :ProgramImgFromDb="programnow.imgSrc" :name="programnow.name"
-    :description="programnow.description" :price="programnow.price" @save-Program="editProgram"></modal>
+    :type="programnow.type"  :equipment="programnow.equipment" :price="programnow.price" @save-Program="editProgram"></modal>
 </template>
 <script>
 import ProgramBlock from "../components/ProgramBlock";
@@ -122,8 +122,9 @@ export default {
         },
         body: JSON.stringify({
           name: newProgram.name,
-          description: newProgram.description,
+          type: newProgram.type,
           price: newProgram.price,
+          equipment: newProgram.equipment,
           imgSrc: newProgram.imgSrc,
         }),
       });
@@ -151,25 +152,28 @@ export default {
         },
         body: JSON.stringify({
           name: editingProgram.name,
-          description: editingProgram.description,
+          type: editingProgram.type,
           price: editingProgram.price,
+          equipment: editingProgram.equipment,
           imgSrc: editingProgram.imgSrc,
         }),
       });
       const data = await res.json();
-      this.Program = this.Program.map((m) =>
-        m.id === data.id
+      this.Program = this.Program.map((p) =>
+        p.id === data.id
           ? {
-              ...m,
+              ...p,
               name: data.name,
-              description: data.description,
+              type: data.type,
               price: data.price,
+              equipment: data.equipment,
               imgSrc: data.imgSrc,
             }
-          : m
+          : p
       );
       this.programnow.name = editingProgram.name;
-      this.programnow.description = editingProgram.description;
+      this.programnow.type = editingProgram.type;
+      this.programnow.equipment = editingProgram.equipment;
       this.programnow.price = editingProgram.price;
       this.programnow.imgSrc = editingProgram.imgSrc;
     },
